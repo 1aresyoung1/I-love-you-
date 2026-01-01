@@ -5,44 +5,48 @@ from telegram.ext import (
     CommandHandler,
     MessageHandler,
     ContextTypes,
-    filters,
+    filters
 )
 
-# 🔐 Токен ТІЛЬКИ з environment
+# Беремо токен з Railway Variables
 TOKEN = os.getenv("BOT_TOKEN")
 
-if not TOKEN:
-    raise RuntimeError("❌ BOT_TOKEN не знайдено. Перевір Railway → Shared Variables")
-
-# /start
+# --- Команда /start ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["😊 Добре", "😐 Нормально"],
-        ["😔 Сумно", "💖 Підтримка"],
+        ["😔 Сумно", "💖 Підтримка"]
     ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    await update.message.reply_text(
-        "Привіт 💕 Як ти сьогодні?",
-        reply_markup=reply_markup,
+    reply_markup = ReplyKeyboardMarkup(
+        keyboard,
+        resize_keyboard=True
     )
 
-# Обробка тексту
+    await update.message.reply_text(
+        "Привіт! 💕\nЯк ти себе почуваєш сьогодні?",
+        reply_markup=reply_markup
+    )
+
+# --- Обробка кнопок ---
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
 
     responses = {
-        "😊 Добре": "Я дуже рада це чути 🥰",
-        "😐 Нормально": "Головне — що тримаєшся 💪",
-        "😔 Сумно": "Мені шкода 😢 Я поруч",
-        "💖 Підтримка": "Ти не одна ❤️ Все буде добре",
+        "😊 Добре": "Я дуже рада це чути! ✨",
+        "😐 Нормально": "Це теж нормально 💛",
+        "😔 Сумно": "Мені шкода 😔 Я поруч.",
+        "💖 Підтримка": "Ти не одна 💕 Все буде добре."
     }
 
     await update.message.reply_text(
-        responses.get(text, "Я тебе слухаю 💌")
+        responses.get(text, "Я тебе чую 💫")
     )
 
+# --- Запуск бота ---
 def main():
+    if not TOKEN:
+        raise ValueError("BOT_TOKEN не знайдено. Додай його в Railway Variables.")
+
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
