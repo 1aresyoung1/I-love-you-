@@ -9,7 +9,7 @@ from telegram.ext import (
 )
 
 # Беремо токен з Railway Variables
-TOKEN = os.getenv("8342609349:AAHpFcc-mY735PX4D6w5pjQLIncJP1bbeyA")
+TOKEN = os.getenv(8342609349:AAHpFcc-mY735PX4D6w5pjQLIncJP1bbeyA)
 
 # --- Команда /start ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
