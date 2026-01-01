@@ -12,7 +12,7 @@ from telegram.ext import (
 TOKEN = os.getenv("BOT_TOKEN")
 
 if not TOKEN:
-    raise ValueError("8342609349:AAHpFcc-mY735PX4D6w5pjQLIncJP1bbeyA")
+    raise ValueError("❌ BOT_TOKEN не знайдено. Додай його в Railway → Shared Variables")
 
 # ===== КОМАНДИ =====
 
