@@ -8,7 +8,7 @@ from telegram.ext import (
     filters
 )
 
-TOKEN = os.getenv("8342609349:AAEsYKaV5keWQAWbNWkELJvcYzNgo_eqOzM")
+TOKEN = os.getenv("8342609349:AAHpFcc-mY735PX4D6w5pjQLIncJP1bbeyA")
 
 # --- Команди ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
