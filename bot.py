@@ -7,7 +7,7 @@ from telegram.ext import (
     ContextTypes
 )
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("8342609349:AAEsYKaV5keWQAWbNWkELJvcYzNgo_eqOzM")
 
 cute_messages = [
     "Ти неймовірна 💖",
