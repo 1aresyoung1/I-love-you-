@@ -8,54 +8,61 @@ from telegram.ext import (
     filters
 )
 
-TOKEN = os.getenv("8342609349:AAHpFcc-mY735PX4D6w5pjQLIncJP1bbeyA")
+# 🔐 Беремо токен ТІЛЬКИ з Railway Variables
+TOKEN = os.getenv("BOT_TOKEN")
 
-# --- Команди ---
+if not TOKEN:
+    raise ValueError("8342609349:AAHpFcc-mY735PX4D6w5pjQLIncJP1bbeyA")
+
+# ===== КОМАНДИ =====
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         ["😊 Добре", "😐 Нормально"],
         ["😔 Сумно", "💖 Підтримка"]
     ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    reply_markup = ReplyKeyboardMarkup(
+        keyboard,
+        resize_keyboard=True
+    )
 
     await update.message.reply_text(
-        "Привіт 💕\nЯ твій милий бот підтримки.\nЯк ти зараз почуваєшся?",
+        "Привіт 💕\nЯ твій милий бот 🤖\nЯк ти себе почуваєш?",
         reply_markup=reply_markup
     )
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Я можу:\n"
-        "💬 підтримати тебе\n"
-        "😊 запитати про настрій\n"
-        "💖 надіслати щось миле\n\n"
-        "Просто натисни кнопку ⬇️"
+        "🧸 Я вмію:\n"
+        "/start — почати\n"
+        "/help — допомога\n\n"
+        "Просто натискай кнопки 💖"
     )
 
-# --- Повідомлення ---
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
 
     if text == "😊 Добре":
-        await update.message.reply_text("Я дуже рада це чути! ✨💖")
+        await update.message.reply_text("Я дуже рада це чути 😄✨")
     elif text == "😐 Нормально":
-        await update.message.reply_text("Це теж ок 🌸 Я поруч.")
+        await update.message.reply_text("Головне — що не погано 🌤️")
     elif text == "😔 Сумно":
-        await update.message.reply_text("Обіймаю тебе 🤍 Все буде добре.")
+        await update.message.reply_text("Я поруч 🤍 Хочеш обійми? 🫂")
     elif text == "💖 Підтримка":
-        await update.message.reply_text("Ти неймовірний/неймовірна 💕 Не забувай це.")
+        await update.message.reply_text("Ти важлива 💕 І все буде добре 🌸")
     else:
-        await update.message.reply_text("Я тебе слухаю 💬")
+        await update.message.reply_text("Я тебе слухаю 👂💭")
 
-# --- Запуск ---
+# ===== ЗАПУСК =====
+
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
-    print("Bot is running...")
+    print("🤖 Бот запущений")
     app.run_polling()
 
 if __name__ == "__main__":
